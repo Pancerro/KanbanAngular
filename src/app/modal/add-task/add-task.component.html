@@ -1,0 +1,19 @@
+<div class="center">
+    <h1 mat-dialog-title>Add your task</h1>
+    <div mat-dialog-content>
+        <div class="addTask">
+            <form #taskForm="ngForm">
+                <div ngModelGroup="task">
+                    <mat-form-field>
+                        <p><input matInput type="text" placeholder="Title" required name="title" ngModel></p>
+                        <mat-error>Title is Mandatory</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+        <button mat-button [mat-dialog-close]="taskForm" cdkFocusInitial>Add Task</button>
+    </div>
+</div>
