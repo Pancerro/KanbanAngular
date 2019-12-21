@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { KanbanServiceService } from '../kanban-service.service';
 import { AddTaskComponent } from '../modal/add-task/add-task.component';
 import { MatDialog } from '@angular/material';
-import { Task } from '../task';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Task } from '../model/task';
+import { KanbanService } from '../service/kanban.service';
 
 @Component({
   selector: 'app-kanban-task-list',
@@ -11,7 +11,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./kanban-task-list.component.css']
 })
 export class KanbanTaskListComponent implements OnInit {
-  constructor(private kanbanService:KanbanServiceService,
+  constructor(private kanbanService:KanbanService,
     public dialog: MatDialog) {
       this.taskAdd=new Task;
     }

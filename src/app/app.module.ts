@@ -5,12 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KanbanTaskListComponent } from './kanban-task-list/kanban-task-list.component';
-import { KanbanServiceService } from './kanban-service.service';
 import { MatFormFieldModule,  MatDialogModule,MatInputModule, MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { AddTaskComponent } from './modal/add-task/add-task.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { KanbanService } from './service/kanban.service';
 @NgModule({
   entryComponents:[AddTaskComponent],
   declarations: [
@@ -31,7 +31,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatInputModule,
     DragDropModule
   ],
-  providers: [KanbanServiceService],
+  providers: [KanbanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

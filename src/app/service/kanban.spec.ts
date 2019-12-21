@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KanbanServiceService } from './kanban-service.service';
+import { KanbanService } from './kanban.service';
 
-describe('KanbanServiceService', () => {
+describe('KanbanService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: KanbanServiceService = TestBed.get(KanbanServiceService);
+    const service: KanbanService = TestBed.get(KanbanService);
     expect(service).toBeTruthy();
   });
 });
