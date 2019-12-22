@@ -43,14 +43,12 @@ export class KanbanTaskListComponent implements OnInit {
           this.taskAdd.taskTitle=result.value.task.title;
           this.taskAdd.taskTable=table;
           this.kanbanService.addTask(this.taskAdd).subscribe();
-          window.location.reload();
         }
       }
     });
   }
   deleteTask(id){
     this.kanbanService.deleteTask(id).subscribe()
-    window.location.reload();
   }
   save(){
     for(let d of this.taskDo){
