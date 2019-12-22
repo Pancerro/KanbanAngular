@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Task } from '../model/task';
 import { KanbanService } from '../service/kanban.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kanban-task-list',
@@ -12,7 +13,8 @@ import { KanbanService } from '../service/kanban.service';
 })
 export class KanbanTaskListComponent implements OnInit {
   constructor(private kanbanService:KanbanService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public router:Router) {
       this.taskAdd=new Task;
     }
   task:Task[];
@@ -43,12 +45,14 @@ export class KanbanTaskListComponent implements OnInit {
           this.taskAdd.taskTitle=result.value.task.title;
           this.taskAdd.taskTable=table;
           this.kanbanService.addTask(this.taskAdd).subscribe();
+          this.router.navigate(['/welcome-page']);
         }
       }
     });
   }
   deleteTask(id){
-    this.kanbanService.deleteTask(id).subscribe()
+    this.kanbanService.deleteTask(id).subscribe();
+    this.router.navigate(['/welcome-page']);
   }
   save(){
     for(let d of this.taskDo){
