@@ -14,25 +14,23 @@ import { Router } from '@angular/router';
 export class KanbanTaskListComponent implements OnInit {
   constructor(private kanbanService:KanbanService,
     public dialog: MatDialog,
-    public router:Router) {
-      this.taskAdd=new Task;
-    }
+    public router:Router) {}
   task:Task[];
   taskAdd:Task;
   taskToDo=[];
   taskDo=[];
   taskDone=[];
-  ngOnInit() {
+  ngOnInit():void {
     this.kanbanService.findAll().subscribe(res=>{
       this.task=res;
       for(let d of this.task){
         if(d.taskTable=="todo") this.taskToDo.push(d);
-        if(d.taskTable=="do")this.taskDo.push(d);
+        if(d.taskTable=="do")   this.taskDo.push(d);
         if(d.taskTable=="done") this.taskDone.push(d);
       }
     });
   }
-  addTask(table):void {
+  addTask(table:string):void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
     width: '250px',
     });
@@ -42,19 +40,25 @@ export class KanbanTaskListComponent implements OnInit {
           window.alert("Please correct all errors and resubmit add task");
         }
         else{
+          console.log(this.task);
+          this.taskAdd=new Task;
           this.taskAdd.taskTitle=result.value.task.title;
           this.taskAdd.taskTable=table;
+          if(this.taskAdd.taskTable=="todo") this.taskToDo.push(this.taskAdd);
+          if(this.taskAdd.taskTable=="do")   this.taskDo.push(this.taskAdd);
+          if(this.taskAdd.taskTable=="done") this.taskDone.push(this.taskAdd);
           this.kanbanService.addTask(this.taskAdd).subscribe();
-          this.router.navigate(['/welcome-page']);
         }
       }
     });
   }
-  deleteTask(id){
-    this.kanbanService.deleteTask(id).subscribe();
-    this.router.navigate(['/welcome-page']);
-  }
-  save(){
+  deleteTask(task:Task):void{
+    this.kanbanService.deleteTask(task.id).subscribe();
+    if(task.taskTable=="todo") this.taskToDo.splice(this.taskToDo.indexOf(task),1);
+    if(task.taskTable=="do")this.taskDo.splice(this.taskDo.indexOf(task),1);
+    if(task.taskTable=="done") this.taskDone.splice(this.taskDone.indexOf(task),1);
+  } 
+  save():void{
     for(let d of this.taskDo){
       d.taskTable="do"
       this.kanbanService.addTask(d).subscribe()
@@ -68,7 +72,7 @@ export class KanbanTaskListComponent implements OnInit {
       this.kanbanService.addTask(d).subscribe()
     }
   }
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>):void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } 

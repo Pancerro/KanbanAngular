@@ -5,7 +5,7 @@
             <button mat-stroked-button color="primary" (click)="addTask('todo')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskToDo" class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let item of taskToDo" cdkDrag>{{item.taskTitle}}
-                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item.id)"><mat-icon>delete</mat-icon></button>
+                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
             <button mat-stroked-button color="primary" (click)="addTask('do')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskDo" class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let item of taskDo" cdkDrag>{{item.taskTitle}}
-                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item.id)"><mat-icon>delete</mat-icon></button>
+                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <button mat-stroked-button color="primary" (click)="addTask('done')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskDone" class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" *ngFor="let item of taskDone" cdkDrag>{{item.taskTitle}}
-                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item.id)"><mat-icon>delete</mat-icon></button>
+                    <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
         </div>

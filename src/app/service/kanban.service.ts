@@ -10,16 +10,21 @@ export class KanbanService {
   private kanbanUrl:string
   constructor(private http:HttpClient) {
     this.kanbanUrl='https://kanban-server-springboot.herokuapp.com/kanban';
+    //this.kanbanUrl='http://localhost:8080/kanban';
    }
-   public findAll():Observable<any[]>{
-      return this.http.get<any[]>(this.kanbanUrl);
+   public findAll():Observable<Task[]>{
+      return this.http.get<Task[]>(this.kanbanUrl);
    }
    public addTask(task:Task){
-     this.kanbanUrl=='https://kanban-server-springboot.herokuapp.com/kanban';
+    this.kanbanUrl=='https://kanban-server-springboot.herokuapp.com/kanban';
+    //this.kanbanUrl='http://localhost:8080/kanban';
      return this.http.post<Task>(this.kanbanUrl,task);
    }
-   public deleteTask(id:number){
+   public deleteTask(id:number): Observable<any>{
      this.kanbanUrl='https://kanban-server-springboot.herokuapp.com/kanban/'+id;
+     //this.kanbanUrl='http://localhost:8080/kanban/'+id;
+     console.log(this.kanbanUrl);
      return this.http.delete(this.kanbanUrl);
    }
+
 }
