@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AddTaskComponent } from '../modal/add-task/add-task.component';
 import { MatDialog } from '@angular/material';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Task } from '../model/task';
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class KanbanTaskListComponent implements OnInit {
   constructor(private kanbanService:KanbanService,
-    public dialog: MatDialog,
     public router:Router) {}
   task:Task[];
   taskAdd:Task;
@@ -31,45 +29,27 @@ export class KanbanTaskListComponent implements OnInit {
     });
   }
   addTask(table:string):void {
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-    width: '250px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result!=undefined){
-        if(result.invalid){
-          window.alert("Please correct all errors and resubmit add task");
-        }
-        else{
-          console.log(this.task);
-          this.taskAdd=new Task;
-          this.taskAdd.taskTitle=result.value.task.title;
-          this.taskAdd.taskTable=table;
-          if(this.taskAdd.taskTable=="todo") this.taskToDo.push(this.taskAdd);
-          if(this.taskAdd.taskTable=="do")   this.taskDo.push(this.taskAdd);
-          if(this.taskAdd.taskTable=="done") this.taskDone.push(this.taskAdd);
-          this.kanbanService.addTask(this.taskAdd).subscribe();
-        }
-      }
-    });
+    this.router.navigate(['/add-task-page/'+table]);
   }
   deleteTask(task:Task):void{
-    this.kanbanService.deleteTask(task.id).subscribe();
     if(task.taskTable=="todo") this.taskToDo.splice(this.taskToDo.indexOf(task),1);
-    if(task.taskTable=="do")this.taskDo.splice(this.taskDo.indexOf(task),1);
+    if(task.taskTable=="do")   this.taskDo.splice(this.taskDo.indexOf(task),1);
     if(task.taskTable=="done") this.taskDone.splice(this.taskDone.indexOf(task),1);
+    this.kanbanService.deleteTask(task.id).subscribe();
   } 
+
   save():void{
     for(let d of this.taskDo){
       d.taskTable="do"
-      this.kanbanService.addTask(d).subscribe()
+      this.kanbanService.addTask(d);
     }
     for(let d of this.taskDone){
       d.taskTable="done"
-      this.kanbanService.addTask(d).subscribe()
+      this.kanbanService.addTask(d);
     }
     for(let d of this.taskToDo){
       d.taskTable="todo"
-      this.kanbanService.addTask(d).subscribe()
+      this.kanbanService.addTask(d);
     }
   }
   drop(event: CdkDragDrop<string[]>):void {

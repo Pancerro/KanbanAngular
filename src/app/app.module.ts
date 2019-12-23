@@ -8,11 +8,10 @@ import { KanbanTaskListComponent } from './kanban-task-list/kanban-task-list.com
 import { MatFormFieldModule,  MatDialogModule,MatInputModule, MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
-import { AddTaskComponent } from './modal/add-task/add-task.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { KanbanService } from './service/kanban.service';
+import { AddTaskComponent } from './kanban-task/add-task/add-task.component';
 @NgModule({
-  entryComponents:[AddTaskComponent],
   declarations: [
     AppComponent,
     KanbanTaskListComponent,

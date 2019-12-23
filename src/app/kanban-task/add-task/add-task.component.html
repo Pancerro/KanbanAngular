@@ -1,0 +1,10 @@
+<h1>Add task to table {{table}}</h1>
+<form (ngSubmit)="addTask(newTask)" #newTask="ngForm">
+    <div class="task">
+        <mat-form-field class="form">
+            <input matInput placeholder="Task" required name="taskTitle" ngModel>
+        </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" [disabled]="newTask.invalid" type="submit">Add task</button>
+    <button mat-stroked-button color="primary" (click)="cancel()">Go to task list</button>
+</form>
