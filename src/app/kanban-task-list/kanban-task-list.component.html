@@ -1,10 +1,12 @@
-<div>
+<div class="center">
+    <h1>KANBAN TABLE:</h1>
     <div cdkDropListGroup>
         <div class="example-container">
             <h2>To do</h2>
             <button mat-stroked-button color="primary" (click)="addTask('todo')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskToDo" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of taskToDo" cdkDrag>{{item.taskTitle}}
+                <div class="example-box" [style.backgroundColor]="item.taskPriority" *ngFor="let item of taskToDo" cdkDrag [@itemAnim]>
+                    <button mat-stroked-button color="primary" class="buttonTask" (click)="editTask(item,'todo')">{{item.taskTitle}}</button>
                     <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
@@ -14,7 +16,8 @@
             <h2>Do</h2>
             <button mat-stroked-button color="primary" (click)="addTask('do')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskDo" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of taskDo" cdkDrag>{{item.taskTitle}}
+                <div class="example-box" [style.backgroundColor]="item.taskPriority" *ngFor="let item of taskDo" cdkDrag [@itemAnim]>
+                    <button mat-stroked-button color="primary" class="buttonTask" (click)="editTask(item,'do')">{{item.taskTitle}}</button>
                     <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
@@ -24,12 +27,11 @@
             <h2>Done</h2>
             <button mat-stroked-button color="primary" (click)="addTask('done')"><mat-icon>add_circle</mat-icon></button>
             <div cdkDropList [cdkDropListData]="taskDone" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of taskDone" cdkDrag>{{item.taskTitle}}
+                <div class="example-box" [style.backgroundColor]="item.taskPriority" *ngFor="let item of taskDone" cdkDrag [@itemAnim]>
+                    <button mat-stroked-button color="primary" class="buttonTask" (click)="editTask(item,'done')">{{item.taskTitle}}</button>
                     <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>

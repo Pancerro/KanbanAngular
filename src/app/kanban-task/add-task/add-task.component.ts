@@ -26,6 +26,8 @@ export class AddTaskComponent  {
     this.taskAdd=new Task;
     this.taskAdd.taskTitle=newTask.value.taskTitle;
     this.taskAdd.taskTable=this.table;
+    this.taskAdd.taskText=newTask.value.taskText;
+    this.taskAdd.taskPriority=newTask.value.priority;
     this.kanbanService.addTask(this.taskAdd)
   }
 }

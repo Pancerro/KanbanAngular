@@ -1,5 +1,7 @@
 export class Task {
     id: number;
-    taskTitle: string;
+    taskTitle:string;
     taskTable:string;
+    taskText:string;
+    taskPriority:string
 }

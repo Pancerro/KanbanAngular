@@ -1,0 +1,32 @@
+<div class="center">
+    <button class="editButton" mat-stroked-button color="primary" (click)="editTask()"><mat-icon>edit</mat-icon></button><br>
+    <h1 mat-dialog-title *ngIf="!edit">Update your task</h1>
+    <div mat-dialog-content>
+        <div class="updateTask">
+            <form #updateTaskForm="ngForm">
+                <div ngModelGroup="task">
+                    <mat-form-field>
+                        <p><input matInput type="text" placeholder="Title" [disabled]="edit" required name="title" [(ngModel)]="data.title" ngModel></p>
+                        <mat-error>Title is Mandatory</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea matInput placeholder="Description" name="description" [disabled]="edit" [(ngModel)]="data.description" ngModel cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Priority: </mat-label>
+                        <mat-select name="priority" [disabled]="edit" [(ngModel)]="data.priority" ngModel>
+                            <mat-option value="white">-</mat-option>
+                            <mat-option style="background-color:green" value="green">Low</mat-option>
+                            <mat-option style="background-color:yellow" value="yellow">Medium</mat-option>
+                            <mat-option style="background-color:red" value="red">High</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+        <button mat-button [mat-dialog-close]="updateTaskForm" *ngIf="!edit" cdkFocusInitial>Update Task</button>
+    </div>
+</div>

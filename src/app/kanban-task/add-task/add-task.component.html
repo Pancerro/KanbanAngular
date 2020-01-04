@@ -4,6 +4,18 @@
         <mat-form-field class="form">
             <input matInput placeholder="Task" required name="taskTitle" ngModel>
         </mat-form-field>
+        <mat-form-field class="form">
+            <input matInput placeholder="Task" required name="taskText" ngModel>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Priority </mat-label>
+            <mat-select name="priority" ngModel>
+                <mat-option value="white">-</mat-option>
+                <mat-option style="background-color:green" value="green">Low</mat-option>
+                <mat-option style="background-color:yellow" value="yellow">Medium</mat-option>
+                <mat-option style="background-color:red" value="red">High</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <button mat-stroked-button color="primary" [disabled]="newTask.invalid" type="submit">Add task</button>
     <button mat-stroked-button color="primary" (click)="cancel()">Go to task list</button>
