@@ -9,9 +9,6 @@ import { KanbanTaskListComponent } from 'src/app/kanban-task-list/kanban-task-li
 })
 export class EditTaskComponent{
   edit:boolean=true;
-  date:Date=new Date;
-  userId:string;
-  category=[];
   constructor(
     public dialogRef: MatDialogRef<KanbanTaskListComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
