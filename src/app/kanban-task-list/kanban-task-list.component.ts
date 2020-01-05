@@ -11,15 +11,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-kanban-task-list',
   templateUrl: './kanban-task-list.component.html',
   styleUrls: ['./kanban-task-list.component.css'],
-  animations: [
-    trigger('itemAnim', [
-      transition(':leave', [
-      style({
-      backgroundColor: 'red',
-      opacity: 1}),
-      animate('0.5s ease-in')
-      ])
-      ])]
 })
 export class KanbanTaskListComponent implements OnInit {
   constructor(private kanbanService:KanbanService,
@@ -89,6 +80,7 @@ export class KanbanTaskListComponent implements OnInit {
            } 
           })
         }
+          console.log(this.taskEdit);
           this.kanbanService.addTask(this.taskEdit);
         }
       }
