@@ -12,13 +12,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { KanbanService } from './service/kanban.service';
 import { AddTaskComponent } from './kanban-task/add-task/add-task.component';
 import { EditTaskComponent } from './kanban-task/edit-task/edit-task.component';
+import { AddUserComponent } from './kanban-task/add-user/add-user.component';
 @NgModule({
-  entryComponents: [EditTaskComponent],
+  entryComponents: [EditTaskComponent,AddUserComponent],
   declarations: [
     AppComponent,
     KanbanTaskListComponent,
     AddTaskComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,12 @@
                         <mat-option style="background-color:red" value="red">High</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-form-field>
+                    <mat-label>User </mat-label>
+                    <mat-select name="user" ngModel>
+                        <mat-option *ngFor="let item of user" value="{{item.username}}">{{item.username}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <button mat-stroked-button color="primary" [disabled]="newTask.invalid" type="submit">Add task</button>
             <button mat-stroked-button color="primary" (click)="cancel()">Go to task list</button>

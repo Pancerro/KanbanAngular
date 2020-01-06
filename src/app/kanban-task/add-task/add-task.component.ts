@@ -10,6 +10,8 @@ import { Task } from 'src/app/model/task';
 })
 export class AddTaskComponent  {
   table: string = "";
+  taskAdd:Task;
+  user=[]
   constructor(private kanbanService:KanbanService,
     public router:Router,
     private route: ActivatedRoute) { }
@@ -17,8 +19,10 @@ export class AddTaskComponent  {
       this.route.paramMap.forEach(({params}:Params)=>{
           this.table = params['titleTable']
       })
+      this.kanbanService.findAllUser().subscribe(res=>{
+        this.user=res;
+      });
   }
-    taskAdd:Task;
   cancel(){
     this.router.navigate(['/welcome-page']);
   }
@@ -28,6 +32,7 @@ export class AddTaskComponent  {
     this.taskAdd.taskTable=this.table;
     this.taskAdd.taskText=newTask.value.taskText;
     this.taskAdd.taskPriority=newTask.value.priority;
+    this.taskAdd.taskUsername=newTask.value.user;
     this.kanbanService.addTask(this.taskAdd)
   }
 }

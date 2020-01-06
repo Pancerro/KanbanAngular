@@ -6,6 +6,8 @@ import { KanbanService } from '../service/kanban.service';
 import { Router } from '@angular/router';
 import { EditTaskComponent } from '../kanban-task/edit-task/edit-task.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { User } from '../model/user';
+import { AddUserComponent } from '../kanban-task/add-user/add-user.component';
 
 @Component({
   selector: 'app-kanban-task-list',
@@ -13,14 +15,17 @@ import { trigger, transition, style, animate } from '@angular/animations';
   styleUrls: ['./kanban-task-list.component.css'],
 })
 export class KanbanTaskListComponent implements OnInit {
-  constructor(private kanbanService:KanbanService,
+  constructor(
+    private kanbanService:KanbanService,
     public router:Router,
-    public dialog: MatDialog,) {}
+    public dialog: MatDialog) {}
   task:Task[];
   taskAdd:Task;
+  userAdd:User;
   taskToDo=[];
   taskDo=[];
   taskDone=[];
+  taskUser=[]
   taskEdit:Task;
   ngOnInit():void {
     this.kanbanService.findAll().subscribe(res=>{
@@ -38,7 +43,7 @@ export class KanbanTaskListComponent implements OnInit {
   editTask(item:Task,table:string):void {
     const dialogRef = this.dialog.open(EditTaskComponent, {
     width: '350px',
-    data: {title: item.taskTitle, description: item.taskText, priority:item.taskPriority}
+    data: {title: item.taskTitle, description: item.taskText, priority:item.taskPriority, username:item.taskUsername}
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result!=undefined)
@@ -52,6 +57,7 @@ export class KanbanTaskListComponent implements OnInit {
           this.taskEdit.taskTitle=result.value.task.title;
           this.taskEdit.taskText=result.value.task.description;
           this.taskEdit.taskPriority=result.value.task.priority;
+          this.taskEdit.taskUsername=result.value.task.user;
           this.taskEdit.taskTable=table;
           if(item.taskTable=="todo"){
           this.taskToDo.filter(function (task){
@@ -59,6 +65,7 @@ export class KanbanTaskListComponent implements OnInit {
              task.taskTitle=result.value.task.title;
              task.taskText=result.value.task.description;
              task.taskPriority=result.value.task.priority;
+             task.taskUsername=result.value.task.user;
            } 
           })
         }
@@ -68,6 +75,7 @@ export class KanbanTaskListComponent implements OnInit {
              task.taskTitle=result.value.task.title;
              task.taskText=result.value.task.description;
              task.taskPriority=result.value.task.priority;
+             task.taskUsername=result.value.task.user;
            } 
           })
         }
@@ -77,10 +85,10 @@ export class KanbanTaskListComponent implements OnInit {
              task.taskTitle=result.value.task.title;
              task.taskText=result.value.task.description;
              task.taskPriority=result.value.task.priority;
+             task.taskUsername=result.value.task.user;
            } 
           })
         }
-          console.log(this.taskEdit);
           this.kanbanService.addTask(this.taskEdit);
         }
       }
@@ -93,7 +101,46 @@ export class KanbanTaskListComponent implements OnInit {
     if(task.taskTable=="done") this.taskDone.splice(this.taskDone.indexOf(task),1);
     this.kanbanService.deleteTask(task.id).subscribe();
   } 
-
+  addUser():void{
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '350px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result!=undefined)
+        {
+          if(result.invalid){
+            window.alert("Please correct all errors and resubmit update task");
+          }
+          else{
+          this.userAdd=new User;
+          this.userAdd.username=result.value.username.user;
+           this.kanbanService.addUser(this.userAdd);
+          }
+          }
+        });
+    }
+    searchUser:String;
+    foundUser:String;
+  getTaskByUser(username):void{
+    this.taskUser=[]; 
+    this.searchUser=username;
+    this.searchUser=this.searchUser.toLowerCase(); 
+    for(let item of this.taskToDo){
+      this.foundUser=item.taskUsername;
+      this.foundUser=this.foundUser.toLowerCase();
+      if(this.foundUser==this.searchUser) this.taskUser.push(item);
+    }
+    for(let item of this.taskDo){
+      this.foundUser=item.taskUsername;
+      this.foundUser=this.foundUser.toLowerCase();
+      if(this.foundUser==this.searchUser) this.taskUser.push(item);
+    }
+    for(let item of this.taskDone){
+      this.foundUser=item.taskUsername;
+      this.foundUser=this.foundUser.toLowerCase();
+      if(this.foundUser==this.searchUser) this.taskUser.push(item);
+    }
+  }
   save():void{
     for(let d of this.taskDo){
       d.taskTable="do"

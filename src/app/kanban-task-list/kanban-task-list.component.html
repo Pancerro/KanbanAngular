@@ -1,5 +1,7 @@
 <div class="center">
     <h1>KANBAN TABLE:</h1>
+    <h4>Add user if you need</h4>
+    <button mat-stroked-button color="primary" (click)="addUser()"><mat-icon>add_circle</mat-icon></button>
     <div cdkDropListGroup>
         <div class="example-container">
             <h2>To do</h2>
@@ -32,6 +34,25 @@
                     <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <h4>Get all task by user</h4>
+    <div class="form">
+        <form (ngSubmit)="getTaskByUser(getTask.value.username)" #getTask="ngForm">
+            <div class="task">
+                <mat-form-field class="form">
+                    <input matInput placeholder="Username" required name="username" ngModel>
+                </mat-form-field>
+            </div>
+            <button mat-stroked-button color="primary" [disabled]="getTask.invalid" type="submit">Get task by User</button>
+        </form>
+    </div>
+
+    <div class="example-container">
+        <div class="example-box" [style.backgroundColor]="item.taskPriority" *ngFor="let item of taskUser">
+            <button mat-stroked-button color="primary" class="buttonTask" (click)="editTask(item,'done')">Task Title: {{item.taskTitle}}<br>Add by: {{item.taskUsername}}</button>
+            <button mat-stroked-button color="primary" class="buttonRemove" (click)="deleteTask(item)"><mat-icon>delete</mat-icon></button>
         </div>
     </div>
 </div>

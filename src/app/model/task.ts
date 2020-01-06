@@ -3,5 +3,6 @@ export class Task {
     taskTitle:string;
     taskTable:string;
     taskText:string;
-    taskPriority:string
+    taskPriority:string;
+    taskUsername:string;
 }

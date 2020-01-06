@@ -21,6 +21,12 @@
                             <mat-option style="background-color:red" value="red">High</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>User </mat-label>
+                        <mat-select name="user" [(ngModel)]="data.username" ngModel [disabled]="edit">
+                            <mat-option *ngFor="let item of user" value="{{item.username}}">{{item.username}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </form>
         </div>
